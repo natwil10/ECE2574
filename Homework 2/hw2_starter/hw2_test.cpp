@@ -77,14 +77,14 @@ TEST_CASE("Testing polyline with multiple nodes", "[Poly]")
 	REQUIRE(p.getNumberOfPoints() == 5);
 	REQUIRE(p.getCoordinateX(0) == 0);
 	REQUIRE(p.getCoordinateY(0) == 1);
-	REQUIRE(p.getArcLength() == 8.67);
+	REQUIRE(p.getArcLength() == Approx(8.67));
 	REQUIRE(p.translate(3, 4));
 	REQUIRE(p.translate(0, 0));
 	REQUIRE(p.getCoordinateX(0) == 3);
 	REQUIRE(p.getCoordinateY(0) == 5);
 	REQUIRE(p.getCoordinateX(-1) == -1);
 	REQUIRE(p.getCoordinateY(-1) == -1);
-	REQUIRE(p.translate(-3, -5));
+	REQUIRE(p.translate(-3, -4));
 	REQUIRE(p.getCoordinateX(4) == 3);
 	REQUIRE(p.getCoordinateY(4) == 4);
 	REQUIRE(p.getCoordinateX(5) == -1);
@@ -114,7 +114,6 @@ TEST_CASE("Testing polyline with multiple nodes", "[Poly]")
 
 TEST_CASE("Testing the copy constructor", "[Poly]")
 {
-	INFO("Hint: testing the copy constructor");
 
 	Poly<int> a;
 	Poly<int>b(a);
@@ -142,14 +141,13 @@ TEST_CASE("Testing the copy constructor", "[Poly]")
 	REQUIRE(r.getCoordinateY(0) == q.getCoordinateY(0));
 	REQUIRE(r.getNumberOfPoints() == q.getNumberOfPoints());
 	REQUIRE(r.getArcLength() == q.getArcLength());
-	REQUIRE(q.insert(1, 2, 5));
+	REQUIRE(q.insert(1, 2, 4));
 	REQUIRE(!r.isEmpty());
 
 }
 
 TEST_CASE("Testing the isEmpty method", "[Poly]")
 {
-	INFO("Hint: testing the copy constructor");
 
 	Poly<int> p;
 
@@ -168,7 +166,6 @@ TEST_CASE("Testing the isEmpty method", "[Poly]")
 
 TEST_CASE("Testing the getNumberOfPoints method", "[Poly]")
 {
-	INFO("Hint: testing the copy constructor");
 
 	Poly<int> p;
 	REQUIRE(p.getNumberOfPoints() == 0);
@@ -188,7 +185,6 @@ TEST_CASE("Testing the getNumberOfPoints method", "[Poly]")
 
 TEST_CASE("Testing the insert method", "[Poly]")
 {
-	INFO("Hint: testing the insert method");
 
 	Poly<int> p;
 
@@ -210,7 +206,6 @@ TEST_CASE("Testing the insert method", "[Poly]")
 
 TEST_CASE("Testing the remove method", "[Poly]")
 {
-	INFO("Hint: testing the remove method");
 
 	Poly<int> p;
 
@@ -262,7 +257,6 @@ TEST_CASE("Testing the remove method", "[Poly]")
 
 TEST_CASE("Testing the clear method", "[Poly]")
 {
-	INFO("Hint: testing the copy constructor");
 
 	Poly<int> p;
 	p.clear();		//clear empty
@@ -280,7 +274,6 @@ TEST_CASE("Testing the clear method", "[Poly]")
 
 TEST_CASE("Testing the getCoordinateX method", "[Poly]")
 {
-	INFO("Hint: testing the remove method");
 
 	Poly<int> p;
 	REQUIRE(p.getCoordinateX(0) == -1); //when empty
@@ -301,7 +294,6 @@ TEST_CASE("Testing the getCoordinateX method", "[Poly]")
 
 TEST_CASE("Testing the getCoordinateY method", "[Poly]")
 {
-	INFO("Hint: testing the remove method");
 
 	Poly<int> p;
 	REQUIRE(p.getCoordinateY(0) == -1); //when empty
@@ -321,7 +313,6 @@ TEST_CASE("Testing the getCoordinateY method", "[Poly]")
 
 TEST_CASE("Testing the overloaded assignment operator", "[Poly]")
 {
-	INFO("Hint: testing the overloaded assignment operator");
 
 	Poly<int> p;
 
@@ -350,8 +341,6 @@ TEST_CASE("Testing the overloaded assignment operator", "[Poly]")
 
 TEST_CASE("Testing the getArcLength method", "[Poly]")
 {
-	INFO("Hint: testing the remove method");
-
 	Poly<int> p;
 	REQUIRE(p.getArcLength() == 0.0);	//empty
 
@@ -359,17 +348,16 @@ TEST_CASE("Testing the getArcLength method", "[Poly]")
 	REQUIRE(p.getArcLength() == 0.0);	//one point
 
 	REQUIRE(p.insert(2, 3, 1));			//two points
-	REQUIRE(p.getArcLength() == 1.4);
+	REQUIRE(p.getArcLength() == sqrt(2));
 
 	REQUIRE(p.insert(3, 4, 2));			//multiple points
-	REQUIRE(p.insert(5, 6, 3));
-	REQUIRE(p.getArcLength() == 4.2);
+	REQUIRE(p.insert(4, 5, 3));
+	REQUIRE(p.getArcLength() == 3*sqrt(2));
 
 }
 
 TEST_CASE("Testing the translate method", "[Poly]")
 {
-	INFO("Hint: testing the translate method");
 
 	Poly<int> p;
 	REQUIRE(!p.translate(1, 1));		//when empty
@@ -400,18 +388,17 @@ TEST_CASE("Testing the translate method", "[Poly]")
 
 TEST_CASE("Testing the overloaded plus operator", "[Poly]")
 {
-	INFO("Hint: testing the overloaded plus operator");
 
 	Poly<int> a;
 	Poly<int> b;
 
-	b.operator+(b);					//empty plus empty
+	b=a+b;					//empty plus empty
 	REQUIRE(b.isEmpty());
 
 	Poly<int> c;						//one point plus empty polyline
 	Poly<int> d;
 	REQUIRE(c.insert(0, 0, 0));
-	d.operator+(c);
+	d=d+c;
 	REQUIRE(d.getCoordinateX(0) == 0);
 	REQUIRE(d.getCoordinateY(0) == 0);
 	REQUIRE(d.getNumberOfPoints() == 1);
@@ -420,18 +407,18 @@ TEST_CASE("Testing the overloaded plus operator", "[Poly]")
 	Poly<int> f;
 	REQUIRE(e.insert(0,0,0));
 	REQUIRE(f.insert(0, 1, 0));
-	e.operator+(f);
-	REQUIRE(d.getCoordinateX(0) == 0);
-	REQUIRE(d.getCoordinateY(0) == 0);
-	REQUIRE(d.getCoordinateX(1) == 0);
-	REQUIRE(d.getCoordinateY(1) == 1);
-	REQUIRE(d.getNumberOfPoints() == 2);
+	e = e+f;
+	REQUIRE(e.getCoordinateX(0) == 0);
+	REQUIRE(e.getCoordinateY(0) == 0);
+	REQUIRE(e.getCoordinateX(1) == 0);
+	REQUIRE(e.getCoordinateY(1) == 1);
+	REQUIRE(e.getNumberOfPoints() == 2);
 
 	Poly<int> g;						//1 empty poly and 1 poly of multiple points
 	Poly<int> h;
 	REQUIRE(h.insert(0, 0, 0));
 	REQUIRE(h.insert(0, 1, 1));
-	h.operator+(g);
+	h=h+g;
 	REQUIRE(h.getCoordinateX(0) == 0);
 	REQUIRE(h.getCoordinateY(0) == 0);
 	REQUIRE(h.getCoordinateX(1) == 0);
@@ -448,7 +435,7 @@ TEST_CASE("Testing the overloaded plus operator", "[Poly]")
 	REQUIRE(x.insert(3, 4, 1));
 	REQUIRE(x.insert(5, 6, 2));
 	REQUIRE(x.insert(7, 8, 0));
-	x.operator+(p);
+	x=x+p;
 
 	REQUIRE(x.getCoordinateX(4) == p.getCoordinateX(0));
 	REQUIRE(x.getCoordinateX(5) == p.getCoordinateX(1));

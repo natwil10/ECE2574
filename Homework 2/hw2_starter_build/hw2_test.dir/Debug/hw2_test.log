@@ -1,3 +1,1 @@
-﻿  Building Custom Rule C:/Users/wilso/Desktop/Data Structures/Projects/Homework 2/hw2_starter/CMakeLists.txt
-  CMake does not need to re-run because C:/Users/wilso/Desktop/Data Structures/Projects/Homework 2/hw2_starter_build/CMakeFiles/generate.stamp is up-to-date.
-cl : Command line error D8021: invalid numeric argument '/Wextra'
+﻿cl : Command line error D8021: invalid numeric argument '/Wextra'

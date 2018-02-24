@@ -60,7 +60,7 @@ template<class ItemType>
 bool Poly<ItemType>::isEmpty() const
 {
 
-	return (pointCount == 0);
+	return (headPtr == nullptr);
 	
 }  // end isEmpty
 
@@ -78,45 +78,27 @@ int Poly<ItemType>::getNumberOfPoints() const
 template<class ItemType>
 bool Poly<ItemType>::insert(const ItemType x, const ItemType y, int index)
 {
-
-
-	if (index >= pointCount  || index < 0 )
-		return false;
-
-	Node<ItemType> *node = new Node<ItemType>(x, y);
-
-	if (index == 0 && pointCount != 0)
+	if (index > pointCount || index < 0)
 	{
+		return false;
+	}
 
+	Node<ItemType> *node = new Node<ItemType>(x,y);
+
+	
+	if (index == 0)
+	{
 		node->setNext(headPtr);
 		headPtr = node;
-
 	}
-
 	else
 	{
-		Node<ItemType> *node2 = new Node<ItemType>();
-
-		if (index == 0)
-		{
-			node2 = headPtr;
-			headPtr = node;
-			node->setNext(node2);
-		}
-		else
-		{
-			node2 = getPointerTo(index - 1);
-
-			node->setNext(node2->getNext());
-			node2->setNext(node);
-		}
-
+		node->setNext(getPointerTo(index));
+		getPointerTo(index - 1)->setNext(node);
 	}
 
-	pointCount++;
-
+	++pointCount;
 	return true;
-	
 	
 }  // end add
 
@@ -125,34 +107,25 @@ bool Poly<ItemType>::insert(const ItemType x, const ItemType y, int index)
 template<class ItemType>
 bool Poly<ItemType>::remove(const int index)
 {
-	if (index < 0 || index >= pointCount || isEmpty())		//returns false if the index is invalid
-		return false;
-
-	Node<ItemType> *temp = nullptr;		//creates a pointer to the head pointer of the object being executed
-
-	if (index == 0 )		//deletes the node at location zero of the linked list
+	if (index >= pointCount || index < 0 || isEmpty())
 	{
-		temp = headPtr;
+		return false;
+	}
+	auto temp = headPtr;
+	if (index == 0)
+	{
 		headPtr = headPtr->getNext();
 	}
 	else
-	{			
-		//deletes the node at a location other than zero of the linked list
-
-		Node<ItemType> *prev = getPointerTo(index-1);
-		temp= prev->getNext();
-		if (temp != nullptr&& temp->getNext() != nullptr)
-			prev->setNext(temp->getNext());
-		else
-			prev->setNext(nullptr);
-	}
-	delete temp;
-	pointCount--;
-	if (isEmpty())
 	{
-		headPtr = nullptr;
+		temp = getPointerTo(index);
+		getPointerTo(index - 1)->setNext(temp->getNext());
 	}
+
+	--pointCount;
+	delete temp;
 	return true;
+
 
 }  // end remove
 
@@ -161,7 +134,7 @@ template<class ItemType>
 void Poly<ItemType>::clear()
 {
 	while (!isEmpty())		//removes points until the polyline is empty
-		remove(pointCount);
+		remove(0);
 
 }  // end clear
 
@@ -212,10 +185,10 @@ double Poly<ItemType>::getArcLength() const
 
 	if (!isEmpty() && pointCount > 1)	//traverses the polyline and calculates the distance between each set of adjacent points
 	{
-		for (int c = 0; c < pointCount; c++)
+		for (int c = 0; c < pointCount-1; c++)
 		{
-			x = getCoordinateX(c - 1) - getCoordinateX(c);
-			y = getCoordinateY(c - 1) - getCoordinateY(c);
+			x = getCoordinateX(c) - getCoordinateX(c+1);
+			y = getCoordinateY(c) - getCoordinateY(c+1);
 
 			sum = sum + sqrt(pow((x), 2.0) + pow((y), 2.0));	//executes the distance formula
 		}
@@ -258,7 +231,8 @@ Poly<ItemType>& Poly<ItemType>::operator+(const Poly<ItemType>& rightHandSide) c
 	//code structure from class slides
 
 	static Poly<ItemType> resultValue;		//declares a polyline that will exist for the duration of the program
-	
+	resultValue.clear();
+
 	int c = 0;			//global int to index each insertion in the new polyline
 
 
@@ -271,7 +245,7 @@ Poly<ItemType>& Poly<ItemType>::operator+(const Poly<ItemType>& rightHandSide) c
 
 	for (int location = 0; location < rightHandSide.pointCount; location++)	//inserts each point of the right hand operand into the new polyline
 	{
-		resultValue.insert(rightHandSide.getCoordinateX(location), rightHandSide.getCoordinateX(location), c);
+		resultValue.insert(rightHandSide.getCoordinateX(location), rightHandSide.getCoordinateY(location), c);
 		c++;
 	}
 	
@@ -306,7 +280,7 @@ Node<ItemType> *Poly<ItemType>::getPointerTo(const int index) const
 {
    Node<ItemType> *curPtr = headPtr;	//creates a node that points to the object's head pointer
 
-   for (int c = 0; c != index; c++)		//traverses the linked list until it arrives at the desired index
+   for (int c = 0; c < index; c++)		//traverses the linked list until it arrives at the desired index
    {
 	   curPtr = curPtr->getNext();
    }
