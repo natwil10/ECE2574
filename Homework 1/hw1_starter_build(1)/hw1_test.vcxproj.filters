@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework1\hw1_starter(1)\hw1_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework1\hw1_starter(1)\catch.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework1\hw1_starter(1)\ArrayBag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework1\hw1_starter(1)\BagInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework1\hw1_starter(1)\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{FBBF44F1-553C-38E5-B361-F712A1A118C2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C606E650-12E8-39F3-95C8-EB84C82FB426}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

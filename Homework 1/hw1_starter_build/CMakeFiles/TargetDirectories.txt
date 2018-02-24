@@ -1,0 +1,4 @@
+C:/Users/wilso/Desktop/Data Structures/Projects/Homework1/hw1_starter_build/CMakeFiles/RUN_TESTS.dir
+C:/Users/wilso/Desktop/Data Structures/Projects/Homework1/hw1_starter_build/CMakeFiles/hw1_test.dir
+C:/Users/wilso/Desktop/Data Structures/Projects/Homework1/hw1_starter_build/CMakeFiles/ALL_BUILD.dir
+C:/Users/wilso/Desktop/Data Structures/Projects/Homework1/hw1_starter_build/CMakeFiles/ZERO_CHECK.dir

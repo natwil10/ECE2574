@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\wilso\Desktop\Data Structures\Projects\Homework 2\hw2_starter_build\CMakeFiles\8b25fc93eff890ee09a63d1c49f481d0\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{85A99847-DDEF-381B-96A0-0C520F36375D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
